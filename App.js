@@ -6,7 +6,7 @@ import 'react-native-gesture-handler';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import logginScreen from './screens/logginScreen';
 import homeScreen from './screens/homeScreen';
-
+import Preguntas from './screens/PreguntasScreen';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -15,7 +15,8 @@ const App = () => {
       <Stack.Navigator>
 
         <Stack.Screen name="Loggin" component={logginScreen}/>
-        <Stack.Screen name="Home" component={homeScreen}/>
+        <Stack.Screen name="home" component={homeScreen}/>
+        
 
       </Stack.Navigator>
     </NavigationContainer>

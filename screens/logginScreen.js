@@ -3,10 +3,12 @@ import {View, Text, Image, ScrollView,TouchableOpacity , TextInput, StyleSheet} 
 
 
 
-const Loggin = ({navigation}) => {
+const logginScreen = ({navigation}) => {
   const handlehomeScreen =()=>{
-   navigation.navigate('Home')
+   navigation.navigate('home')
   }
+
+ 
 
   return (
     <ScrollView>
@@ -51,14 +53,21 @@ const Loggin = ({navigation}) => {
       />
 
         <TouchableOpacity style={styles.button} onPress={handlehomeScreen}>
-          <Text>Entrar</Text>
+          <Text style={styles.Text}>Entrar</Text>
         </TouchableOpacity>
+
+       
+
+       
         
     </View> 
     </ScrollView>
    
   );
 };
+
+
+
  const styles= StyleSheet.create({
   container: {
    marginTop: 5,
@@ -86,4 +95,4 @@ const Loggin = ({navigation}) => {
         
 });
 
-export default Loggin;
+export default logginScreen;

@@ -1,11 +1,54 @@
 import React from 'react';
-import { View, Text,Image, Button,TouchableOpacity, StyleSheet, Dimensions } from "react-native";
+import { View, Text,Image,TextInput,Alert, Button,TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { Value } from 'react-native-reanimated';
+import {useState} from 'react';
+import {getFirestore, collection, addDoc} from 'firebase/firestore';
+import appfirebase from '../firebase';
 
-var HomeScreen =({navigation}) =>{
-  var handleLogginScreen =()=>{
+const db = getFirestore(appfirebase)
+ 
+const homeScreen =() => {
+  
+  const handleLogginScreen =()=>{
     navigation.navigate('Loggin')
+  }
+  const hanlehomeScreen =()=>{
+    navigation.navigate('home')
     
   }
+ 
+  const initialState = {
+    nombre:'',
+    
+
+  }
+ const [state, setState] = useState(initialState)
+
+ const hanleChangeText =(value, name)=>{
+  setState({...state, [name]:value})
+
+ } 
+
+ const savenombre = async()=>{
+   try{
+    await addDoc(collection(db, 'nombre'),{
+      ...state
+ 
+    })
+    Alert.alert('alerta','guardado')
+    props.navigation.navigate('logginScreen')
+  }
+  catch{
+    console.error(error)
+  }
+  
+ }
+
+
+
+   
+
+   
     return (
       <view style={styles.container}>
         <Text style={styles.color}>Bienvenido al sistema</Text>
@@ -16,15 +59,22 @@ var HomeScreen =({navigation}) =>{
         style={{width: 600, height: 360, borderRadius: 50,marginLeft:300,marginTop:47,}}
         />
 
-       <TouchableOpacity style={styles.button} onPress={handleLogginScreen}>
+        <TextInput placeholder='nombre' onChangeText={(value)=>hanleChangeText(value, 'nombre')} value={state.nombre}/>
+       
+        <View>
+          <Button title='Guardar' onPress={savenombre}/>
+        </View>
+       
+
+        <TouchableOpacity style={styles.button} onPress={handleLogginScreen}>
           <Text style={styles.Text}>SALIR </Text>
         </TouchableOpacity>
-      </view>
       
-    );
+      </view>
+    )
 };
 
-export default  HomeScreen;
+
 
 const styles = StyleSheet.create({
  container: {
@@ -81,3 +131,4 @@ const styles = StyleSheet.create({
 
 })
 
+export default  homeScreen;
